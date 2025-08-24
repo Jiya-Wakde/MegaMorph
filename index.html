@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MegaMorph</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Allan:wght@400;700&family=Edu+AU+VIC+WA+NT+Hand:wght@400..700&family=Grey+Qo&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Nova+Square&family=Pirata+One&display=swap" rel="stylesheet">
+<style>
+    body {
+      margin: 0;
+      height: 100vh;
+      overflow-x: hidden;
+      overflow-y: scroll;
+      scroll-snap-type: y mandatory;
+      background: url('./static/assests/transformer_bg.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
+    
+
+    section {
+      height: 100vh;
+      width: 100%;
+      scroll-snap-align: start;
+      position: relative;
+      z-index: 1;
+    }
+
+    canvas#bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      z-index: 1; /* keep above background */
+    }
+
+    header.floating-header {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(50,50,50,0.9);
+      padding: 10px 40px;
+      border-radius: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      z-index: 20;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      color: white;
+    }
+
+    header.floating-header a {
+      color: white;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: transform 0.2s, color 0.2s;
+      font-size: 1rem;
+    }
+
+    header.floating-header a:hover {
+      color: #ffcc00;
+      transform: scale(1.1);
+    }
+
+    .horizontal-scroll-container {
+      display: flex;
+      flex-direction: row;
+      min-height: 100vh;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      padding: 50px 0;
+      z-index: 2;
+      position: relative;
+    }
+
+    .horizontal-section {
+      flex: 0 0 70vw;
+      margin: 0 15px;
+      scroll-snap-align: center;
+      background: url("./static/assests/transformer_bg.jpg") no-repeat;
+      background-size: cover;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(255,0,0,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.5s, box-shadow 0.5s;
+      position: relative;
+    }
+
+    .horizontal-section:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 50px rgba(255,204,0,0.8);
+    }
+
+    .event-section {
+      display: flex;
+      max-width: 1100px;
+      width: 100%;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 30px;
+      color: white;
+    }
+
+    .event-section .left,
+    .event-section .right {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .event-section .center {
+      flex: 2;
+      text-align: center; /* center content */
+      background-color: rgba(0,0,0,0.6);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(255,215,0,0.5);
+    }
+
+    .event-section h1 {
+      font-family: 'Arial Black', sans-serif;
+      font-size: 2rem;
+      margin: 0;
+      color: #ff0000;
+    }
+
+    .event-section .tagline {
+      font-family: 'Brush Script MT', cursive;
+      font-size: 1.2rem;
+      margin: 10px 0 20px;
+      color: #ffd700;
+    }
+
+    .event-section .description {
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .event-section img.globe {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .event-section .robot {
+      max-width: 120px;
+      height: auto;
+    }
+
+    /* Hide scrollbar */
+    .horizontal-scroll-container::-webkit-scrollbar {
+      display: none;
+    }
+
+    .center .button {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .register-btn {
+      display: inline-block;
+      padding: 12px 30px;
+      background: linear-gradient(45deg, #ff0000, #ffcc00);
+      color: #fff;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 10px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 4px 15px rgba(255,0,0,0.6);
+      font-family: 'Arial Black', sans-serif;
+    }
+
+    .register-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(255,204,0,0.8);
+    }
+
+#splash {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(22, 15, 15, 0.9); /* white background */
+  padding: 15px 100%;
+  border-radius: 10px;
+  z-index: 9999;
+  text-align: center;
+  animation: fadeOut 2s ease forwards;
+  animation-delay: 4s; /* show for 3 seconds */
+}
+
+.splash-text {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 3rem;
+  color: #ff0b0b; /* deep red */
+  white-space: nowrap; /* keep in one line */
+  text-shadow: 0 0 8px #33ffee, 0 0 16px #09c268; /* transformer glow */
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+.footer-section {
+  background: linear-gradient(90deg, #0b0b0b, #111, #0b0b0b);
+  padding: 50px 20px;
+  text-align: center;
+  height: 150px;
+  border-top: 3px solid #cc0000; 
+}
+
+.footer-tagline {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 10rem;
+  color: #FFD700;
+  margin-bottom: 15px;
+  text-shadow: 0 0 8px #ff0000, 0 0 15px #ff6600;
+}
+
+.footer-section p {
+  color: #fff;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.1rem;
+  margin: 10px 0;
+}
+
+.footer-section a {
+  color: #00ccff;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-section a:hover {
+  color: #ffcc00;
+}
+
+/* Faction glow styles */
+.autobot {
+  color: #00ccff;
+  text-shadow: 0 0 10px #00ccff, 0 0 20px #66e0ff;
+  font-weight: bold;
+}
+
+.decepticon {
+  color: #ff0000;
+  text-shadow: 0 0 10px #ff0000, 0 0 20px #ff6666;
+  font-weight: bold;
+}
+
+
+  </style>
+</head>
+<body>
+
+<header class="floating-header">
+  <a href="#horizontal-scroll-container"><span class="material-icons">event</span> Events</a>
+  <a href="#highlights"><span class="material-icons">star</span> Highlights</a>
+  <a href="./login.html"><span class="material-icons">login</span> Login</a>
+  <a href="#contacts"><span class="material-icons">mail</span> Contacts</a>
+</header>
+
+<!-- Splash Screen -->
+<div id="splash">
+  <h1 class="splash-text">Cummins College of Engineering for Women, Nagpur</h1>
+</div>
+
+<canvas id="bg"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+
+<script src="static/js/app.js"></script>
+
+<!-- Horizontal Scroll Events -->
+<div class="horizontal-scroll-container" id="horizontal-scroll-container">
+  <section class="horizontal-section">
+    <div class="container event-section">
+      <div class="left"><img src="./static/assests/Transformer planet.png" class="globe"></div>
+      <div class="center">
+        <h1>Autobot Rally</h1>
+        <p class="tagline">Transformers Unite!</p>
+        <p class="description">Join the Autobots in thrilling Cybertron-inspired challenges.</p>
+        <div class="button"><a href="./event_details.html" class="register-btn">View Mission</a></div>
+      </div>
+      <div class="right"><img src="./static/assests/b&o.png" class="robot"></div>
+    </div>
+  </section>
+  
+  <section class="horizontal-section">
+    <div class="container event-section">
+      <div class="left"><img src="./static/assests/Transformer planet.png" class="globe"></div>
+      <div class="center">
+        <h1>Decepticon Showdown</h1>
+        <p class="tagline">Power of Decepticons</p>
+        <p class="description">Face off against Decepticons in epic strategy and combat events.</p>
+        <div class="button"><a href="./event_details.html" class="register-btn">View Mission</a></div>
+      </div>
+      <div class="right"><img src="./static/assests/b&o.png" class="robot"></div>
+    </div>
+  </section>
+
+  <section class="horizontal-section">
+    <div class="container event-section">
+      <div class="left"><img src="./static/assests/Transformer planet.png" class="globe"></div>
+      <div class="center">
+        <h1>Cybertron Quest</h1>
+        <p class="tagline">Explore the Unknown</p>
+        <p class="description">Solve puzzles and missions inspired by Transformers lore.</p>
+        <div class="button"><a href="./event_details.html" class="register-btn">View Mission</a></div>
+      </div>
+      <div class="right"><img src="./static/assests/b&o.png" class="robot"></div>
+    </div>
+  </section>
+</div>
+
+<!-- Footer / Contacts -->
+<section class="footer-section" id="contacts">
+  <footer>
+    <p class="footer-tagline">⚡ Till All Are One ⚡</p><br>
+    <div class="footer-contacts">
+      <p>📧 Contact us: <a href="mailto:transformersfest@college.com">transformersfest@college.com</a></p>
+      <p>🌐 Follow us: 
+        <a href="#">Instagram</a> | 
+        <a href="#">Facebook</a> | 
+        <a href="#">Twitter</a>
+      </p>
+    </div>
+        <p>
+      Crafted with sparks of Cybertron by our 
+      <span class="autobot">Transformers</span> – 
+      <span class="creator autobot">Jiya Wakde</span>, 
+      <span class="creator decepticon">Amruta Kale</span>, 
+      <span class="creator autobot">Iqra Sheikh</span>, 
+      & <span class="creator decepticon">Khushi Kakde</span>
+    </p>
+  </footer>
+</section>
+
+
+
+</body>
+</html>

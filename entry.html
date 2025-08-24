@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Event Registration Form</title>
+  <style>
+    body {
+  font-family: 'Arial Black', sans-serif;
+  background: url('./static/assests/transformer.jpg') no-repeat center center fixed;
+  background-size: cover;
+  margin: 0;
+  padding: 0;
+  color: #fff;
+}
+
+.container {
+  background: rgba(20, 20, 30, 0.9); /* dark metal look */
+  max-width: 700px;
+  margin: 50px auto;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /* subtle shadow */
+  border: 1px solid #444; /* sleek border */
+}
+
+h2 {
+  font-family: 'Orbitron', sans-serif;
+  color: #ff0000;
+  text-shadow: 0 0 8px #ff0000 ;
+  text-align: center;
+  font-size: 40px;
+}
+
+label {
+  font-weight: bold;
+  display: block;
+  margin: 15px 0 5px;
+  color: #ccc; /* subtle, readable */
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+select,
+input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #555;
+  border-radius: 5px;
+  background: rgba(30, 30, 40, 0.85);
+  color: #fff;
+}
+
+.team-section {
+  display: none;
+  margin-top: 20px;
+  padding: 15px;
+  background-color: rgba(25, 25, 35, 0.85);
+  border: 1px solid #555;
+  border-radius: 8px;
+}
+
+.submit-btn {
+  background: linear-gradient(135deg, #990000, #cc0000); /* metallic red gradient */
+  color: #fff;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  width: 100%;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.submit-btn:hover {
+  background: linear-gradient(135deg, #770000, #aa0000); /* darker on hover */
+}
+
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Mission Registration</h2>
+    <form id="registrationForm" action="./entry_succes.html" method="post" novalidate>
+
+      <label>1. Full Name</label>
+      <input type="text" name="fullName" required>
+
+      <label>2. Email Address</label>
+      <input type="email" name="email" required>
+
+      <label>3. Phone Number / WhatsApp</label>
+      <input type="tel" name="phone" pattern="[0-9]{10}" title="Enter 10-digit number" required>
+
+
+      <label>4. College / Institution Name</label>
+      <input type="text" name="college" required>
+
+      <label>5. Year / Branch (if student)</label>
+      <input type="text" name="yearBranch" placeholder="e.g., 2nd Year CSE">
+
+      <label>6. Event Name (Auto-filled)</label>
+      <select name="eventName" required>
+        <option value="">-- Select Event --</option>
+        <option value="Hackathon">Hackathon</option>
+        <option value="Robotics">Robotics</option>
+        <option value="AI Challenge">AI Challenge</option>
+      </select>
+
+      <label>7. Participation Type</label>
+      <select name="participationType" id="participationType" required>
+        <option value="Individual">Individual</option>
+        <option value="Team">Team</option>
+      </select>
+
+      <div class="team-section" id="teamSection">
+  <label>8. Team Name</label>
+  <input type="text" name="teamName">
+
+  <label>9. Team Leader Name</label>
+  <input type="text" name="teamLeader">
+
+  <label>10. Team Size</label>
+  <select id="teamSize" name="teamSize">
+    <option value="1">1 Member</option>
+    <option value="2">2 Members</option>
+    <option value="3">3 Members</option>
+    <option value="4">4 Members</option>
+  </select>
+
+  <div id="teamMembersContainer">
+    <input type="text" name="member1" placeholder="Member 1 Name">
+    <input type="text" name="member2" placeholder="Member 2 Name">
+    <input type="text" name="member3" placeholder="Member 3 Name">
+    <input type="text" name="member4" placeholder="Member 4 Name">
+  </div>
+</div>
+
+      <label>11. Domain (Optional – if required by event)</label>
+      <input type="text" name="domain" placeholder="e.g., AI, Web Dev, Robotics">
+
+      <label>12. Upload Submission (if required)</label>
+      <input type="file" name="submission" accept=".pdf,.zip,.docx,.jpg,.png">
+
+      <div class="checkbox">
+        <input type="checkbox" name="terms" required> I agree to the Terms & Conditions
+      </div>
+
+      <button type="submit" class="submit-btn">Submit</button>
+
+    </form>
+  </div>
+
+  <script>
+    const participationSelect = document.getElementById('participationType');
+    const teamSection = document.getElementById('teamSection');
+    const teamSizeSelect = document.getElementById('teamSize');
+    const membersContainer = document.getElementById('teamMembersContainer');
+    const memberInputs = membersContainer.querySelectorAll('input');
+
+    participationSelect.addEventListener('change', function () {
+      if (this.value === 'Team') {
+        teamSection.style.display = 'block';
+      } else {
+        teamSection.style.display = 'none';
+      }
+    });
+
+    // Show only needed member inputs based on team size
+    teamSizeSelect.addEventListener('change', function () {
+      const size = parseInt(this.value);
+      memberInputs.forEach((input, index) => {
+        if (index < size) {
+          input.style.display = 'block';
+          input.required = true;
+        } else {
+          input.style.display = 'none';
+          input.required = false;
+          input.value = '';
+        }
+      });
+    });
+
+    // Initialize on page load
+    teamSizeSelect.dispatchEvent(new Event('change'));
+
+    participationSelect.addEventListener('change', function () {
+      if (this.value === 'Team') {
+        teamSection.style.display = 'block';
+      } else {
+        teamSection.style.display = 'none';
+      }
+    });
+  </script>
+
+</body>
+</html>

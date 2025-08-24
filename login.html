@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transformer Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Orbitron', sans-serif;
+      background: url('Event Name(1).png') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-image: url(./static/assests/login_bg.jpg);
+    }
+
+    .login-box {
+      width: 380px;
+      padding: 40px;
+      background: rgba(0, 0, 0, 0.85);
+      box-shadow: 0 0 20px #00ffff, 0 0 40px #ff0000 inset;
+      border: 2px solid #00ffff;
+      border-radius: 12px;
+      text-align: center;
+      position: relative;
+    }
+
+    .login-box h1 {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 5px;
+      color: #ff0000;
+      text-shadow: 0 0 8px #ff0000, 0 0 16px #00ffff;
+    }
+
+    .login-box p {
+      font-size: 16px;
+      margin-bottom: 30px;
+      color: #00ffff;
+      text-shadow: 0 0 5px #00ffff;
+    }
+
+    .login-box input {
+      width: 90%;
+      padding: 12px;
+      margin: 12px 0;
+      border: 2px solid #00ffff;
+      background: rgba(0,0,0,0.3);
+      outline: none;
+      font-size: 16px;
+      color: #fff;
+      border-radius: 5px;
+      transition: 0.3s;
+    }
+
+    .login-box input::placeholder {
+      color: #00ffffaa;
+    }
+
+    .login-box input:focus {
+      border-color: #ff0000;
+      box-shadow: 0 0 8px #ff0000;
+    }
+
+    .login-box button {
+      width: 95%;
+      padding: 14px;
+      margin-top: 20px;
+      background: linear-gradient(90deg, #ff0000, #00ffff);
+      color: #fff;
+      font-size: 18px;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 0 15px #ff0000, 0 0 15px #00ffff inset;
+    }
+
+    .login-box button:hover {
+      background: linear-gradient(90deg, #00ffff, #ff0000);
+      box-shadow: 0 0 20px #00ffff, 0 0 20px #ff0000 inset;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-box">
+    <h1>LOG IN</h1>
+    <p>Cybertron Access</p>
+    <form action="register_event.html" method="post" enctype="multipart/form-data">
+      <input type="email" placeholder="Enter Email" required>
+      <input type="password" placeholder="Enter Password" required>
+      <button type="submit">LOG IN</button>
+    </form>
+  </div>
+</body>
+</html>

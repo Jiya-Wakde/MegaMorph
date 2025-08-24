@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Event Created</title>
+<style>
+  body {
+    margin:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    font-family:'Arial Black', sans-serif;
+    background: #0f0f1e;
+    color:#ff0000;
+    text-align:center;
+  }
+  h1 { font-size: clamp(24px, 5vw, 48px); text-shadow:0 0 8px rgba(255,0,0,0.6);}
+  p { color:#fff; margin-top:10px; }
+</style>
+</head>
+<body>
+  <div>
+    <h1>Event Created Successfully!</h1>
+    <p>Redirecting to home page...</p>
+  </div>
+
+  <script>
+    setTimeout(() => {
+      window.location.href = "index.html"; // redirect to home after 3 seconds
+    }, 3000);
+  </script>
+</body>
+</html>

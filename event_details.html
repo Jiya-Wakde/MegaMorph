@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Event Details</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Allan:wght@400;700&family=Edu+AU+VIC+WA+NT+Hand:wght@400..700&family=Grey+Qo&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Nova+Square&family=Pirata+One&display=swap" rel="stylesheet">
+<style>
+body {
+  margin:0; padding:0;
+  font-family: 'Nova Square', sans-serif;
+  background: url('./static/assests/transformer.jpg') no-repeat center center fixed;
+  background-size: cover;
+  color: #fff;
+}
+
+.overlay {
+  background: rgba(15,15,25,0.85);
+  padding: 50px 20px;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  background: rgba(20,20,30,0.95);
+  padding: 30px;
+  border-radius: 18px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+  border: 1px solid #444;
+}
+
+.event-header {
+  text-align: center;
+}
+
+.event-header h1 {
+  font-size: 2.8em;
+  color: #ff0000; 
+  text-shadow: 0 0 8px rgba(255,0,0,0.7);
+  margin-bottom: 8px;
+}
+
+.tagline {
+  font-style: italic;
+  color: #ff5555;
+  margin-bottom: 20px;
+}
+
+.event-image {
+  width: 100%;
+  max-height: 400px;
+  object-fit: contain;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  border: 3px solid #ff0000;
+  box-shadow: 0 0 15px rgba(255,0,0,0.6);
+}
+
+.details {
+  line-height: 1.8;
+  color: #fff;
+  font-weight: 500;
+}
+
+.details strong {
+  display: inline-block;
+  width: 200px;
+  color: #ff5555;
+}
+
+.accept-btn {
+  display: block;
+  width: fit-content;
+  margin: 40px auto 0;
+  padding: 14px 30px;
+  font-size: 16px;
+  background: linear-gradient(135deg, #cc0000, #ff0000);
+  color: white;
+  text-decoration: none;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(204,0,0,0.35);
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.accept-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255,0,0,0.5);
+}
+
+@media screen and (max-width: 600px) {
+  .details strong { width: 100%; }
+}
+</style>
+</head>
+<body>
+<div class="overlay">
+  <div class="container">
+    <div class="event-header">
+      <h1>TechFest 2025</h1>
+      <div class="tagline">Organized by Coding Club</div>
+      <img class="event-image" src="https://img.freepik.com/premium-vector/hackathon-hack-marathon-coding-event-glitch-poster-saturated-binary-data-code-flux_102902-967.jpg" alt="Event Poster">
+    </div>
+
+    <div class="details">
+      <p><strong>Event Description:</strong> TechFest 2025 brings together tech enthusiasts for a day of coding, innovation, and fun! Highlights include a 12-hour hackathon, live project demonstrations, and exciting tech quizzes.</p>
+      <p><strong>Participation Type:</strong> Team</p>
+      <p><strong>Team Size:</strong> 4</p>
+      <p><strong>Entry Fee:</strong> ₹200</p>
+      <p><strong>Registration Starts:</strong> 2025-08-25  -  09:00</p>
+      <p><strong>Registration Ends:</strong> 2025-09-05   -  18:00</p>
+      <p><strong>Event Starts:</strong> 2025-09-07  -  10:00</p>
+      <p><strong>Event Ends:</strong> 2025-09-07  -  18:00</p>
+      <p><strong>Venue:</strong> Main Auditorium, Tech Campus</p>
+      <p><strong>Organizer:</strong> Steve Jobs, Club Head</p>
+      <p><strong>Contact Info:</strong> +91-9876543210 | example@techfest.com</p>
+      <p><strong>Domain:</strong> Hackathon, Project Presentation</p>
+      <p><strong>Additional Notes:</strong> Exciting prizes for winners, certificates for all participants, lunch included. Dress code: Casual with ID card mandatory.</p>
+    </div>
+
+    <a href="./entry.html" class="accept-btn">Accept Mission</a>
+  </div>
+</div>
+</body>
+</html>
