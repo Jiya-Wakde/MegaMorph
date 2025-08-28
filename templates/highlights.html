@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cummins Highlight</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <style>
+    body {
+      background: black;
+    }
+   .highlights-section {
+  padding: 50px;
+  text-align: center;
+  background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
+  color: #fff;
+}
+
+.title {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  color: #feca1b; /* Bumblebee yellow */
+  text-shadow: 0 0 15px #feca1b;
+}
+
+.highlight-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+.highlight-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid #feca1b33;
+  border-radius: 15px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.highlight-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 0 25px #feca1b;
+}
+
+.highlight-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+.highlight-content {
+  padding: 20px;
+}
+
+.highlight-content h2 {
+  color: #feca1b;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.highlight-content .year {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+  color: #05fdd8; /* Optimus blue */
+}
+
+.btn-glow {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 10px 20px;
+  color: #000;
+  background: #feca1b;
+  border-radius: 25px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.btn-glow:hover {
+  background: #05fdd8;
+  color: #000;
+  box-shadow: 0 0 20px #05fdd8;
+}
+    header.floating-header {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(50,50,50,0.9);
+      padding: 10px 40px;
+      border-radius: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      z-index: 20;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      color: white;
+    }
+
+    header.floating-header a {
+      color: white;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: transform 0.2s, color 0.2s;
+      font-size: 1rem;
+    }
+
+    header.floating-header a:hover {
+      color: #ffcc00;
+      transform: scale(1.1);
+    }
+    .footer-section {
+  background: linear-gradient(90deg, #0b0b0b, #111, #0b0b0b);
+  padding: 50px 20px;
+  text-align: center;
+  height: 150px;
+  border-top: 3px solid #cc0000;
+}
+
+.footer-tagline {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 10rem;
+  color: #FFD700;
+  margin-bottom: 15px;
+  text-shadow: 0 0 8px #ff0000, 0 0 15px #ff6600;
+}
+
+.footer-section p {
+  color: #fff;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.1rem;
+  margin: 10px 0;
+}
+
+.footer-section a {
+  color: #00ccff;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-section a:hover {
+  color: #ffcc00;
+}
+    </style>
+
+</head>
+<body>
+<header class="floating-header">
+  <a href='{{ url_for("home") }}'><span class="material-icons">event</span> Events</a>
+  <a href='{{ url_for("highlights") }}'><span class="material-icons">star</span> Highlights</a>
+  <a href='{{ url_for("login") }}'><span class="material-icons">login</span> Login</a>
+  <a href="#contacts"><span class="material-icons">mail</span> Contacts</a>
+</header>
+<section class="highlights-section">
+  <h1 class="title">✨ Cultural Fest Highlights ✨</h1>
+  <div class="highlight-grid">
+    {% for h in highlights %}
+      <div class="highlight-card">
+        <img src="{{ url_for('static', filename='assests/' ~ h.image) }}" alt="{{ h.title }}">
+        <div class="highlight-content">
+          <h2>{{ h.title }}</h2>
+          <p>{{ h.description[:120] }}...</p>
+          <span class="year">🎭 {{ h.year }}</span>
+          {% if h.link %}
+            <a href="{{ h.link }}" class="btn-glow">Know More</a>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  <a href='{{ url_for("add_highlight") }}' class="btn-glow">ADD EVENT</a>
+</section>
+<section class="footer-section" id="contacts">
+  <footer>
+    <p class="footer-tagline">⚡ Till All Are One ⚡</p><br>
+    <div class="footer-contacts">
+      <p>📧 Contact us: <a href="mailto:transformersfest@college.com">transformersfest@college.com</a></p>
+      <p>🌐 Follow us:
+        <a href="#">Instagram</a> |
+        <a href="#">Facebook</a> |
+        <a href="#">Twitter</a>
+      </p>
+    </div>
+        <p>
+      Crafted with sparks of Cybertron by our
+      <span class="autobot">Transformers</span> –
+      <span class="creator autobot">Jiya Wakde</span>,
+      <span class="creator decepticon">Amruta Kale</span>,
+      <span class="creator autobot">Iqra Sheikh</span>,
+      & <span class="creator decepticon">Khushi Kakde</span>
+    </p>
+  </footer>
+</section>
+
+</body>
+</html>

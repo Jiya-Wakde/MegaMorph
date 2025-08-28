@@ -16,7 +16,7 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
-      background-image: url(./static/assests/login_bg.jpg);
+      background-image: url(../static/assests/login_bg.jpg);
     }
 
     .login-box {
@@ -92,11 +92,18 @@
   <div class="login-box">
     <h1>LOG IN</h1>
     <p>Cybertron Access</p>
-    <form action="register_event.html" method="post" enctype="multipart/form-data">
-      <input type="email" placeholder="Enter Email" required>
-      <input type="password" placeholder="Enter Password" required>
+    <form action='{{ url_for("login") }}' method="post" enctype="multipart/form-data">
+      <input type="text" placeholder="Enter Username" name="username" required>
+      <input type="password" placeholder="Enter Password" name="password" required>
       <button type="submit">LOG IN</button>
     </form>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }}">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
   </div>
 </body>
 </html>

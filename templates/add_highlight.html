@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Cultural Highlight</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #0d0d0d;
+      color: #f1f1f1;
+    }
+
+    header, footer {
+      background: #111;
+      padding: 15px 40px;
+      text-align: center;
+      color: #f1f1f1;
+    }
+
+    h1 {
+      margin: 20px 0;
+      text-align: center;
+      color: #ffcc00;
+      letter-spacing: 2px;
+    }
+
+    .form-container {
+      max-width: 600px;
+      margin: 40px auto;
+      background: #1a1a1a;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0px 0px 20px rgba(255, 204, 0, 0.4);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #ffcc00;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 18px;
+      border: none;
+      border-radius: 8px;
+      background: #2c2c2c;
+      color: #fff;
+    }
+
+    textarea {
+      resize: none;
+      height: 100px;
+    }
+
+    button {
+      background: #ffcc00;
+      border: none;
+      padding: 12px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    button:hover {
+      background: #e6b800;
+    }
+
+
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <h2>Cultural Fest</h2>
+  </header>
+
+  <!-- Form Section -->
+  <div class="form-container">
+    <h1>Add a Highlight</h1>
+    <form action="{{ url_for('add_highlight') }}" method="POST" enctype="multipart/form-data">
+      <label for="title">Event Title</label>
+      <input type="text" id="title" name="title" placeholder="Enter event title" required>
+
+      <label for="description">Event Description</label>
+      <textarea id="description" name="description" placeholder="Write a short description" required></textarea>
+
+      <label for="year">Year</label>
+      <input type="text" id="year" name="year" placeholder="e.g. 2025" required>
+
+      <label for="image">Upload Image</label>
+      <input type="file" id="image" name="image" accept="image/*">
+
+      <button type="submit">Add Highlight</button>
+    </form>
+  </div>
+
+  <!-- Footer -->
+<section class="footer-section" id="contacts">
+  <footer>
+    <p class="footer-tagline">⚡ Till All Are One ⚡</p><br>
+    <div class="footer-contacts">
+      <p>📧 Contact us: <a href="mailto:transformersfest@college.com">transformersfest@college.com</a></p>
+      <p>🌐 Follow us:
+        <a href="#">Instagram</a> |
+        <a href="#">Facebook</a> |
+        <a href="#">Twitter</a>
+      </p>
+    </div>
+        <p>
+      Crafted with sparks of Cybertron by our
+      <span class="autobot">Transformers</span> –
+      <span class="creator autobot">Jiya Wakde</span>,
+      <span class="creator decepticon">Amruta Kale</span>,
+      <span class="creator autobot">Iqra Sheikh</span>,
+      & <span class="creator decepticon">Khushi Kakde</span>
+    </p>
+  </footer>
+</section>
+</body>
+</html>

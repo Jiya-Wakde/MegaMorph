@@ -34,7 +34,7 @@
       width: 100%;
       height: 100%;
       display: block;
-      z-index: 1; /* keep above background */
+      z-index: 1; 
     }
 
     header.floating-header {
@@ -269,8 +269,8 @@
 
 <header class="floating-header">
   <a href="#horizontal-scroll-container"><span class="material-icons">event</span> Events</a>
-  <a href="#highlights"><span class="material-icons">star</span> Highlights</a>
-  <a href="./login.html"><span class="material-icons">login</span> Login</a>
+  <a href='{{ url_for("highlights") }}'><span class="material-icons">star</span> Highlights</a>
+  <a href='{{ url_for("login") }}'><span class="material-icons">login</span> Login</a>
   <a href="#contacts"><span class="material-icons">mail</span> Contacts</a>
 </header>
 
@@ -285,49 +285,30 @@
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
 
-<script src="static/js/app.js"></script>
+<script src="../static/js/app.js"></script>
 
 <!-- Horizontal Scroll Events -->
 <div class="horizontal-scroll-container" id="horizontal-scroll-container">
+  {% for event in events %}
   <section class="horizontal-section">
     <div class="container event-section">
-      <div class="left"><img src="./static/assests/Transformer planet.png" class="globe"></div>
+      <div class="left"><img src="{{ url_for('static', filename='assests/Transformer planet.png') }}" class="globe"></div>
       <div class="center">
-        <h1>Autobot Rally</h1>
-        <p class="tagline">Transformers Unite!</p>
-        <p class="description">Join the Autobots in thrilling Cybertron-inspired challenges.</p>
-        <div class="button"><a href="./event_details.html" class="register-btn">View Mission</a></div>
+        <h1>{{ event.name }}</h1>
+        {% if event.tagline %}
+          <p class="tagline">{{ event.tagline }}</p>
+        {% endif %}
+        <p class="description">{{ event.description[:150] }}{% if event.description|length > 150 %}...{% endif %}</p>
+        <div class="button">
+          <a href="{{ url_for('event_details', event_id=event.id) }}" class="register-btn">View Mission</a>
+        </div>
       </div>
-      <div class="right"><img src="./static/assests/b&o.png" class="robot"></div>
+      <div class="right"><img src="{{ url_for('static', filename='assests/b&o.png') }}" class="robot"></div>
     </div>
   </section>
-  
-  <section class="horizontal-section">
-    <div class="container event-section">
-      <div class="left"><img src="./static/assests/Transformer planet.png" class="globe"></div>
-      <div class="center">
-        <h1>Decepticon Showdown</h1>
-        <p class="tagline">Power of Decepticons</p>
-        <p class="description">Face off against Decepticons in epic strategy and combat events.</p>
-        <div class="button"><a href="./event_details.html" class="register-btn">View Mission</a></div>
-      </div>
-      <div class="right"><img src="./static/assests/b&o.png" class="robot"></div>
-    </div>
-  </section>
-
-  <section class="horizontal-section">
-    <div class="container event-section">
-      <div class="left"><img src="./static/assests/Transformer planet.png" class="globe"></div>
-      <div class="center">
-        <h1>Cybertron Quest</h1>
-        <p class="tagline">Explore the Unknown</p>
-        <p class="description">Solve puzzles and missions inspired by Transformers lore.</p>
-        <div class="button"><a href="./event_details.html" class="register-btn">View Mission</a></div>
-      </div>
-      <div class="right"><img src="./static/assests/b&o.png" class="robot"></div>
-    </div>
-  </section>
+  {% endfor %}
 </div>
+
 
 <!-- Footer / Contacts -->
 <section class="footer-section" id="contacts">

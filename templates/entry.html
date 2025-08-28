@@ -6,88 +6,87 @@
   <title>Event Registration Form</title>
   <style>
     body {
-  font-family: 'Arial Black', sans-serif;
-  background: url('./static/assests/transformer.jpg') no-repeat center center fixed;
-  background-size: cover;
-  margin: 0;
-  padding: 0;
-  color: #fff;
-}
+      font-family: 'Arial Black', sans-serif;
+      background: url('{{ url_for('static', filename='assests/transformer.jpg') }}') no-repeat center center fixed;
+      background-size: cover;
+      margin: 0;
+      padding: 0;
+      color: #fff;
+    }
 
-.container {
-  background: rgba(20, 20, 30, 0.9); /* dark metal look */
-  max-width: 700px;
-  margin: 50px auto;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /* subtle shadow */
-  border: 1px solid #444; /* sleek border */
-}
+    .container {
+      background: rgba(20, 20, 30, 0.9); /* dark metal look */
+      max-width: 700px;
+      margin: 50px auto;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /* subtle shadow */
+      border: 1px solid #444; /* sleek border */
+    }
 
-h2 {
-  font-family: 'Orbitron', sans-serif;
-  color: #ff0000;
-  text-shadow: 0 0 8px #ff0000 ;
-  text-align: center;
-  font-size: 40px;
-}
+    h2 {
+      font-family: 'Orbitron', sans-serif;
+      color: #ff0000;
+      text-shadow: 0 0 8px #ff0000 ;
+      text-align: center;
+      font-size: 40px;
+    }
 
-label {
-  font-weight: bold;
-  display: block;
-  margin: 15px 0 5px;
-  color: #ccc; /* subtle, readable */
-}
+    label {
+      font-weight: bold;
+      display: block;
+      margin: 15px 0 5px;
+      color: #ccc; /* subtle, readable */
+    }
 
-input[type="text"],
-input[type="email"],
-input[type="tel"],
-select,
-input[type="file"] {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #555;
-  border-radius: 5px;
-  background: rgba(30, 30, 40, 0.85);
-  color: #fff;
-}
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    select,
+    input[type="file"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #555;
+      border-radius: 5px;
+      background: rgba(30, 30, 40, 0.85);
+      color: #fff;
+    }
 
-.team-section {
-  display: none;
-  margin-top: 20px;
-  padding: 15px;
-  background-color: rgba(25, 25, 35, 0.85);
-  border: 1px solid #555;
-  border-radius: 8px;
-}
+    .team-section {
+      display: none;
+      margin-top: 20px;
+      padding: 15px;
+      background-color: rgba(25, 25, 35, 0.85);
+      border: 1px solid #555;
+      border-radius: 8px;
+    }
 
-.submit-btn {
-  background: linear-gradient(135deg, #990000, #cc0000); /* metallic red gradient */
-  color: #fff;
-  padding: 12px;
-  border: none;
-  border-radius: 6px;
-  width: 100%;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background 0.3s;
-}
+    .submit-btn {
+      background: linear-gradient(135deg, #990000, #cc0000); /* metallic red gradient */
+      color: #fff;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      width: 100%;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
 
-.submit-btn:hover {
-  background: linear-gradient(135deg, #770000, #aa0000); /* darker on hover */
-}
-
-
-  </style>
+    .submit-btn:hover {
+      background: linear-gradient(135deg, #770000, #aa0000); /* darker on hover */
+    }
+</style>
 </head>
 <body>
 
   <div class="container">
     <h2>Mission Registration</h2>
-    <form id="registrationForm" action="./entry_succes.html" method="post" novalidate>
+    <form id="registrationForm" action="" method="post" novalidate enctype="multipart/form-data">
 
+    <input type="hidden" name="eventName" value="{{ event.name }}">
       <label>1. Full Name</label>
-      <input type="text" name="fullName" required>
+      <input type="text" name="Name" required>
 
       <label>2. Email Address</label>
       <input type="email" name="email" required>
@@ -102,13 +101,9 @@ input[type="file"] {
       <label>5. Year / Branch (if student)</label>
       <input type="text" name="yearBranch" placeholder="e.g., 2nd Year CSE">
 
-      <label>6. Event Name (Auto-filled)</label>
-      <select name="eventName" required>
-        <option value="">-- Select Event --</option>
-        <option value="Hackathon">Hackathon</option>
-        <option value="Robotics">Robotics</option>
-        <option value="AI Challenge">AI Challenge</option>
-      </select>
+      <label>6. Event Name</label>
+      <input type="text" name="eventName" value="{{ event.name }}" readonly>
+
 
       <label>7. Participation Type</label>
       <select name="participationType" id="participationType" required>
@@ -145,9 +140,6 @@ input[type="file"] {
       <label>12. Upload Submission (if required)</label>
       <input type="file" name="submission" accept=".pdf,.zip,.docx,.jpg,.png">
 
-      <div class="checkbox">
-        <input type="checkbox" name="terms" required> I agree to the Terms & Conditions
-      </div>
 
       <button type="submit" class="submit-btn">Submit</button>
 

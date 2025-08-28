@@ -25,7 +25,7 @@
     margin:0;
     font-family: 'Arial Black', sans-serif;
     background:
-      url('./static/assests/transformer.jpg') no-repeat center center fixed;
+      url('{{ url_for('static', filename='assests/transformer.jpg') }}') no-repeat center center fixed;
     background-size: cover;
     color: var(--text);
     padding: 32px 16px 64px;
@@ -148,7 +148,7 @@
       <h1>Create New Event</h1>
     </div>
 
-    <form action="event-success.html" method="post" enctype="multipart/form-data">
+    <form action="" method="post" enctype="multipart/form-data">
       <fieldset class="grid cols-2">
         <div class="group">
           <label for="eventName" class="req">Event Name</label>

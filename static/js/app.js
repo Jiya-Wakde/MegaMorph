@@ -1,77 +1,92 @@
-const scene = new THREE.Scene();
-const loader = new GLTFLoader();
+// THREE.js 
+  let scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x202030);
 
-let camera, renderer, clock;
-let optimus, megatron;
+  let camera = new THREE.PerspectiveCamera(50, window.innerWidth/window.innerHeight, 0.1, 2000);
+  camera.position.set(0,5,25);
 
-init();
-animate();
-
-function init() {
-  scene = new THREE.Scene();
-
-  camera = new THREE.PerspectiveCamera(
-    50,
-    window.innerWidth / window.innerHeight,
-    0.1,
-    1000
-  );
-  camera.position.set(0, 3, 10);
-
-  renderer = new THREE.WebGLRenderer({ antialias: true });
+  let renderer = new THREE.WebGLRenderer({antialias:true});
   renderer.setSize(window.innerWidth, window.innerHeight);
   document.body.appendChild(renderer.domElement);
 
-  clock = new THREE.Clock();
+  const ambientLight = new THREE.AmbientLight(0xffffff,0.6);
+  scene.add(ambientLight);
+  const dirLight = new THREE.DirectionalLight(0xffffff,1);
+  dirLight.position.set(5,10,7);
+  scene.add(dirLight);
 
-  // Lights
-  const ambient = new THREE.AmbientLight(0x404040, 2);
-  scene.add(ambient);
+  const baseGeometry = new THREE.CylinderGeometry(8,8,1,64);
+  const baseMaterial = new THREE.MeshStandardMaterial({color:0x444444,metalness:0.8,roughness:0.3});
+  const base = new THREE.Mesh(baseGeometry,baseMaterial);
+  base.position.y=-0.5;
+  scene.add(base);
 
-  const pointLight = new THREE.PointLight(0xffffff, 2, 50);
-  pointLight.position.set(0, 10, 10);
-  scene.add(pointLight);
-
-  // Loader
-  const loader = new GLTFLoader();
-
-  // Load Optimus
-  loader.load("static/models/optimus_prime.glb", (gltf) => {
-    optimus = gltf.scene;
-    optimus.position.set(-3, 0, 0);
-    optimus.scale.set(1.5, 1.5, 1.5);
-
-    scene.add(optimus);
+  let optimus, megatron;
+  const loader = new THREE.GLTFLoader();
+  loader.load("../static/assests/optimus_prime.glb", (gltf)=> {
+    optimus=gltf.scene;
+    optimus.scale.set(1.5,1.5,1.5);
+    const box=new THREE.Box3().setFromObject(optimus);
+    const size=new THREE.Vector3();
+    box.getSize(size);
+    const center=new THREE.Vector3();
+    box.getCenter(center);
+    optimus.position.sub(center);
+    optimus.position.y+=size.y/2;
+    optimus.position.x=-5;
+    optimus.rotation.y=Math.PI/8;
+    base.add(optimus);
   });
 
-  // Load Megatron
-  loader.load("static/models/megatron.glb", (gltf) => {
-    megatron = gltf.scene;
-    megatron.position.set(3, 0, 0);
-    megatron.scale.set(1.5, 1.5, 1.5);
-
-    scene.add(megatron);
+  loader.load("../static/assests/megatron.glb", (gltf)=> {
+    megatron=gltf.scene;
+    megatron.scale.set(0.025,0.025,0.025);
+    const box=new THREE.Box3().setFromObject(megatron);
+    const size=new THREE.Vector3();
+    box.getSize(size);
+    const center=new THREE.Vector3();
+    box.getCenter(center);
+    megatron.position.sub(center);
+    megatron.position.y+=size.y/4;
+    megatron.position.x=4;
+    megatron.rotation.y=-Math.PI;
+    base.add(megatron);
   });
 
-  window.addEventListener("resize", onWindowResize, false);
-}
+  window.addEventListener("scroll",()=> {
+    let scrollY=window.scrollY;
+    base.rotation.y=scrollY*0.002;
+    if(scrollY<window.innerHeight*2){
+      camera.position.z=25-(scrollY/window.innerHeight)*16;
+      camera.position.y=5-(scrollY/window.innerHeight)*2;
+    }
+  });
 
-function animate() {
-  requestAnimationFrame(animate);
+  function animate(){
+    requestAnimationFrame(animate);
+    renderer.render(scene,camera);
+  }
+  animate();
 
-  const elapsed = clock.getElapsedTime();
+  window.addEventListener("resize",()=> {
+    camera.aspect=window.innerWidth/window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth,window.innerHeight);
+  });
 
-  // Camera rotation
-  camera.position.x = Math.sin(elapsed * 0.3) * 10;
-  camera.position.z = Math.cos(elapsed * 0.3) * 10;
-  camera.lookAt(0, 2, 0);
+  // Horizontal scroll for mouse wheel
+  const horizontalContainer = document.querySelector('.horizontal-scroll-container');
+  horizontalContainer.addEventListener('wheel', (e)=>{
+    e.preventDefault();
+    horizontalContainer.scrollLeft += e.deltaY;
+  }, {passive:false});
 
-  renderer.render(scene, camera);
-}
-
-function onWindowResize() {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-}
-s
+    // Hide splash  3 seconds
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      document.getElementById("splash").style.opacity = "0";
+      setTimeout(() => {
+        document.getElementById("splash").style.display = "none";
+      }, 1000); 
+    }, 3000);
+  });

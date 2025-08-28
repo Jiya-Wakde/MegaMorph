@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ event.name }} - Details</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+<style>
+body {
+  margin:0; padding:0;
+  font-family: 'Nova Square', sans-serif;
+  background: url('{{ url_for("static", filename="assests/transformer.jpg") }}') no-repeat center center fixed;
+  background-size: cover;
+  color: #fff;
+}
+.overlay {
+  background: rgba(15,15,25,0.85);
+  padding: 50px 20px;
+  min-height: 100vh;
+}
+.container {
+  max-width: 900px;
+  margin: auto;
+  background: rgba(20,20,30,0.95);
+  padding: 30px;
+  border-radius: 18px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+  border: 1px solid #444;
+}
+.event-header {
+  text-align: center;
+}
+.event-header h1 {
+  font-size: 2.8em;
+  color: #ff0000;
+  text-shadow: 0 0 8px rgba(255,0,0,0.7);
+  margin-bottom: 8px;
+}
+.tagline {
+  font-style: italic;
+  color: #ff5555;
+  margin-bottom: 20px;
+}
+.event-image {
+  width: 100%;
+  max-height: 400px;
+  object-fit: contain;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  border: 3px solid #ff0000;
+  box-shadow: 0 0 15px rgba(255,0,0,0.6);
+}
+.details {
+  line-height: 1.8;
+  color: #fff;
+  font-weight: 500;
+}
+.details strong {
+  display: inline-block;
+  width: 200px;
+  color: #ff5555;
+}
+.accept-btn {
+  display: block;
+  width: fit-content;
+  margin: 40px auto 0;
+  padding: 14px 30px;
+  font-size: 16px;
+  background: linear-gradient(135deg, #cc0000, #ff0000);
+  color: white;
+  text-decoration: none;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(204,0,0,0.35);
+  transition: all 0.3s ease;
+  text-align: center;
+}
+.accept-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255,0,0,0.5);
+}
+@media screen and (max-width: 600px) {
+  .details strong { width: 100%; }
+}
+</style>
+</head>
+<body>
+<div class="overlay">
+  <div class="container">
+    <div class="event-header">
+      <h1>{{ event.name }}</h1>
+      <div class="tagline">{{ event.tagline }}</div>
+
+      <!-- Event Poster -->
+      {% if event.poster %}
+        <img class="event-image" src="{{ url_for('static', filename='uploads/' ~ event.poster) }}" alt="Event Poster">
+      {% else %}
+        <img class="event-image" src="{{ url_for('static', filename='assests/default_poster.jpg') }}" alt="Default Poster">
+      {% endif %}
+    </div>
+
+    <div class="details">
+      <p><strong>Event Description:</strong> {{ event.description }}</p>
+      <p><strong>Participation Type:</strong> {{ event.participation_type }}</p>
+      <p><strong>Team Size:</strong> {{ event.team_size }}</p>
+      <p><strong>Entry Fee:</strong> {{ event.entry_fee }} {% if event.amount %}- ₹{{ event.amount }}{% endif %}</p>
+      <p><strong>Registration Starts:</strong> {{ event.reg_start }}</p>
+      <p><strong>Registration Ends:</strong> {{ event.reg_end }}</p>
+      <p><strong>Event Starts:</strong> {{ event.event_start }}</p>
+      <p><strong>Event Ends:</strong> {{ event.event_end }}</p>
+      <p><strong>Venue:</strong> {{ event.venue }}</p>
+      <p><strong>Organizer:</strong> {{ event.organizer_name }}</p>
+      <p><strong>Contact Info:</strong> {{ event.organizer_contact }}</p>
+      <p><strong>Domain:</strong> {{ event.domain }}</p>
+      <p><strong>Additional Notes:</strong> {{ event.notes }}</p>
+    </div>
+
+    <a href="{{ url_for('register_for_event', event_id=event.id) }}" class="accept-btn">
+      Accept Mission
+    </a>
+
+  </div>
+</div>
+</body>
+</html>
