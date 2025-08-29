@@ -34,8 +34,8 @@ class Organiser(db.Model):
 
 
 class Event(db.Model):
-    id = db.Column(db.Integer)
-    name = db.Column(db.String(100), nullable=False, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
     tagline = db.Column(db.String(200))
     description = db.Column(db.Text)
     participation_type = db.Column(db.String(50))
@@ -86,6 +86,7 @@ class CulturalHighlight(db.Model):
 
 # ----------- Initialize DB ----------------
 # with app.app_context():
+#     db.drop_all()
 #     db.create_all()
 #     highlight = CulturalHighlight(
 #         title="Ummag – Garba Night",

@@ -82,6 +82,38 @@
             font-size: 0.85rem;
             letter-spacing: 1px;
         }
+        .footer-section {
+  background: linear-gradient(90deg, #0b0b0b, #111, #0b0b0b);
+  padding: 50px 20px;
+  text-align: center;
+  height: 250px;
+  border-top: 3px solid #cc0000;
+}
+
+.footer-tagline {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 10rem;
+  color: #FFD700;
+  margin-bottom: 15px;
+  text-shadow: 0 0 8px #ff0000, 0 0 15px #ff6600;
+}
+
+.footer-section p {
+  color: #fff;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.1rem;
+  margin: 10px 0;
+}
+
+.footer-section a {
+  color: #00ccff;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-section a:hover {
+  color: #ffcc00;
+}
     </style>
 </head>
 <body>
@@ -113,8 +145,27 @@
         </div>
     </div>
 
-    <footer>
-        ⚙ Transformers Theme Dashboard | Built for Organisers
-    </footer>
+    <section class="footer-section" id="contacts">
+  <footer>
+    <p class="footer-tagline">⚡ Till All Are One ⚡</p><br>
+    <div class="footer-contacts">
+      <p>📧 Contact us: <a href="mailto:transformersfest@college.com">transformersfest@college.com</a></p>
+      <p>🌐 Follow us:
+        <a href="#">Instagram</a> |
+        <a href="#">Facebook</a> |
+        <a href="#">Twitter</a>
+      </p>
+    </div>
+        <p>
+      Crafted with sparks of Cybertron by our
+      <span class="autobot">Transformers</span> –
+      <span class="creator autobot">Jiya Wakde</span>,
+      <span class="creator decepticon">Amruta Kale</span>,
+      <span class="creator autobot">Iqra Sheikh</span>,
+      & <span class="creator decepticon">Khushi Kakde</span>
+    </p>
+  </footer>
+</section>
+
 </body>
 </html>
