@@ -416,6 +416,9 @@ def highlights():
 
 @app.route("/add_highlight", methods=["GET", "POST"])
 def add_highlight():
+    if "user" not in session:
+        redirect(url_for('login'))
+
     if request.method == "POST":
         title = request.form["title"]
         description = request.form["description"]
