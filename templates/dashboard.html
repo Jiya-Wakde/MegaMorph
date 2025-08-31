@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Organiser Dashboard</title>
+    <title>MegaMorph Dashboard</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='assests/favicon.png') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='assests/favicon.png') }}">
     <style>
         body {
             margin: 0;
@@ -120,7 +122,7 @@
     <header>
         <h1>⚡ {{ user }} Dashboard</h1>
         <a href="{{ url_for('register_event') }}" class="btn">+ Register Event</a>
-        <a href='{{ url_for("add_highlight") }}' class="btn">ADD EVENT</a>
+        <a href='{{ url_for("add_highlight") }}' class="btn">+ ADD EVENT</a>
         <a href="{{ url_for('logout') }}" class="btn">🚪 Logout</a>
     </header>
 
