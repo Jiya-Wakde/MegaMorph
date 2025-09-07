@@ -83,11 +83,25 @@ body {
   .details strong { width: 100%; }
 }
 </style>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 <body>
 <div class="overlay">
   <div class="container">
     <div class="event-header">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="container mt-3">
+      {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible fade show shadow-sm rounded-3" role="alert" style="font-size: 0.95rem;">
+          <i class="bi bi-info-circle me-2"></i>  <!-- Bootstrap icon -->
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
       <h1>{{ event.name }}</h1>
       <div class="tagline">{{ event.tagline }}</div>
 

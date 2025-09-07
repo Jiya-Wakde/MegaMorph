@@ -56,9 +56,9 @@ class Event(db.Model):
 
 
 class Participant(db.Model):
-    id = db.Column(db.Integer)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(100), nullable=False)
-    email = db.Column(db.String(120), nullable=False, primary_key=True)
+    email = db.Column(db.String(120), nullable=False)
     phone = db.Column(db.String(15), nullable=False)
     college = db.Column(db.String(150), nullable=False)
     year_branch = db.Column(db.String(100))
@@ -73,6 +73,10 @@ class Participant(db.Model):
     member4 = db.Column(db.String(100))
     domain = db.Column(db.String(100))
     submission = db.Column(db.String(200))
+
+    __table_args__ = (
+        db.UniqueConstraint('email', 'event_name', name='unique_email_per_event'),
+    )
 
 
 class CulturalHighlight(db.Model):
@@ -241,8 +245,19 @@ def event_details(event_id):
 @app.route("/event/<int:event_id>/register", methods=["GET", "POST"])
 def register_for_event(event_id):
     event = Event.query.get_or_404(event_id)
+
     if request.method == "POST":
-        file = request.files.get("submission")  # get uploaded file
+        # Check for existing registration
+        existing = Participant.query.filter_by(
+            email=request.form["email"],
+            event_name=event.name
+        ).first()
+
+        if existing:
+            flash("You are already registered for this event with this email.", "warning")
+            return redirect(url_for("event_details", event_id=event.id))
+
+        file = request.files.get("submission")
         filename = None
         if file and file.filename != "":
             filename = secure_filename(file.filename)
@@ -264,11 +279,13 @@ def register_for_event(event_id):
             member3=request.form.get("member3"),
             member4=request.form.get("member4"),
             domain=request.form.get("domain"),
-            submission=filename  # store the actual filename
+            submission=filename
         )
         db.session.add(participant)
         db.session.commit()
+
         return render_template("entry_succes.html")
+
     return render_template("entry.html", event=event)
 
 
@@ -280,11 +297,11 @@ def login():
         organiser = Organiser.query.filter_by(username=username).first()
         if organiser and check_password_hash(organiser.password, password):
             session["user"] = organiser.username
-            flash("Login successful!", "success")
             return redirect(url_for("dashboard"))
         else:
             flash("Invalid username or password", "danger")
     return render_template("login.html")
+
 
 
 @app.route("/dashboard")
