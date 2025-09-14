@@ -81,12 +81,12 @@
     horizontalContainer.scrollLeft += e.deltaY;
   }, {passive:false});
 
-    // Hide splash  3 seconds
+    // Hide splash  4 seconds
   window.addEventListener("load", () => {
     setTimeout(() => {
       document.getElementById("splash").style.opacity = "0";
       setTimeout(() => {
         document.getElementById("splash").style.display = "none";
       }, 1000); 
-    }, 3000);
+    }, 4000);
   });

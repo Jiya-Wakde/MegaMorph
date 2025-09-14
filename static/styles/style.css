@@ -4,7 +4,7 @@
       overflow-x: hidden;
       overflow-y: scroll;
       scroll-snap-type: y mandatory;
-      background: url('../static/assests/transformer_bg.jpg') no-repeat center center fixed;
+      background: url('../assests/transformer_bg.jpg') no-repeat center center fixed;
       background-size: cover;
     }
     
@@ -76,7 +76,7 @@
       flex: 0 0 70vw;
       margin: 0 15px;
       scroll-snap-align: center;
-      background: url("./static/assests/transformer_bg.jpg") no-repeat;
+      background: url("../assests/transformer_bg.jpg") no-repeat;
       background-size: cover;
       border-radius: 20px;
       box-shadow: 0 0 20px rgba(255,0,0,0.4);

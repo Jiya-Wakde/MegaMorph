@@ -6,7 +6,7 @@ from datetime import datetime
 import os
 
 app = Flask(__name__)
-app.secret_key = "supersecretkey"
+app.secret_key = os.environ.get("secret_key")
 UPLOAD_FOLDER = "static/uploads"
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "gif"}
@@ -182,7 +182,7 @@ class CulturalHighlight(db.Model):
 #     # Create admin organiser
 #     admin = Organiser(
 #         username="admin",
-#         password=generate_password_hash("mypassword123")
+#         password=generate_password_hash(os.environ.get("default_password"))
 #     )
 #     db.session.add(admin)
 #     db.session.commit()
