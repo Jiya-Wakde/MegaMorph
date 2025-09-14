@@ -276,6 +276,9 @@ const entryFeeSelect = document.getElementById('entryFee');
 const amountGroup = document.getElementById('amountGroup');
 const amountInput = document.getElementById('amount');
 
+const form = document.querySelector('form');
+const eventEndInput = document.getElementById('eventEnd');
+
 // Show/hide team size
 participationSelect.addEventListener('change', function() {
   if(this.value === 'Team') {
@@ -299,7 +302,21 @@ entryFeeSelect.addEventListener('change', function() {
     amountInput.value = '';
   }
 });
+
+// Prevent form submission if eventEnd is in the past
+form.addEventListener('submit', function(e) {
+  const eventEndDate = new Date(eventEndInput.value);
+  const now = new Date();
+
+  // Compare only date + time
+  if(eventEndDate < now) {
+    e.preventDefault(); // stop form submission
+    alert('Cannot create event! Event end date has already passed.');
+    eventEndInput.focus();
+  }
+});
 </script>
+
 
 </body>
 </html>
